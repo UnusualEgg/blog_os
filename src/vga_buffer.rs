@@ -124,7 +124,7 @@ impl Writer {
 	/// mode.
 	fn write_string(&mut self, s: &str) {
 		let mut last_chars = [0,0,0];
-		let mut chrptr:u8 = 0;
+		let mut chrptr:usize = 0;
 		for byte in s.bytes() {
 			match byte {
 				0x1b => {last_chars[chrptr]=byte;chrptr+=1;chrptr = if chrptr<3 {chrptr}else{0}},

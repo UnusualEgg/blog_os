@@ -107,7 +107,7 @@ extern "x86-interrupt" fn keyboard_interrupt_handler(_stack_frame: InterruptStac
                 }
                 DecodedKey::RawKey(key) => 
                 match key {
-                    KeyCode::ArrowLeft => print!("\x1b\x5b\x44"),//esc,left supper,(W,A,S,D)
+                //     KeyCode::ArrowLeft => print!("\b"),//esc,left supper,(W,A,S,D)
                     _ => print!("{}{:?}{}", '{', key, '}')
                 },
             }

@@ -97,26 +97,6 @@ impl Writer {
 				self.buffer.chars[BUFFER_HEIGHT-1][self.column_position]
 				.write(ScreenChar{ascii_character:b' ',color_code});
 			},
-			b'\x09'/*'\t'*/ => {
-				use crate::serial_print;
-				serial_print!("{:#4}\n\x0d",byte);
-
-				for _ in 0..4 {
-					if self.column_position >= BUFFER_WIDTH {
-						self.new_line();
-					}
-
-					let row = BUFFER_HEIGHT - 1;
-					let col = self.column_position;
-
-					let color_code = self.color_code;
-					self.buffer.chars[row][col].write(ScreenChar {
-						ascii_character: b' ',
-						color_code,
-					});
-					self.column_position += 1;
-				}
-			}
 			byte => {
 				if self.column_position >= BUFFER_WIDTH {
 					self.new_line();

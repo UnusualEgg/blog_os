@@ -3,13 +3,17 @@
 #![feature(custom_test_frameworks)]
 #![test_runner(blog_os::test_runner)]
 #![reexport_test_harness_main = "test_main"]
+#![feature(asm_const)]
 
+mod cursor;
 extern crate alloc;
 
 use alloc::{boxed::Box, rc::Rc, vec, vec::Vec};
 use blog_os::println;
 use bootloader::{entry_point, BootInfo};
 use core::panic::PanicInfo;
+
+use crate::cursor::enable_cursor;
 
 entry_point!(kernel_main);
 
@@ -55,6 +59,8 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
     test_main();
 
     println!("It did not crash!");
+
+    enable_cursor();
     
     blog_os::hlt_loop();
 }
